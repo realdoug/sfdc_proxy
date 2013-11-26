@@ -9,5 +9,21 @@ Usage
 ========
 There are a couple ways to use the proxy:
 
-*  Mounted in your Rails app
-*  Embedded in a Rack or Ruby application
+### Mounted in your Rails app
+Just add this line to your Gemfile
+```ruby
+gem 'sfdc_proxy'
+```
+
+Then add the following to config/routes.rb
+```ruby
+require 'sfdc_proxy'
+mount SalesforceProxy => '/proxy'
+```
+
+### Embedded in a Rack or Ruby application (or even just from irb)
+You'll need to install the gem of course and then the following two lines are all you'll need
+```ruby
+require 'sfdc_proxy'
+SalesforceProxy.run!
+```
