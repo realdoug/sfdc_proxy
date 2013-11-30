@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'sfdc_proxy'
-  s.version = '0.0.3'
+  s.version = '0.0.4'
   s.summary = "A simple http proxy to the saleforce apis for use in rack applications"
   s.description = "A simple http proxy to the salesforce apis for use in rack applications"
   s.authors = ["Doug Friedman"]
