@@ -16,13 +16,15 @@ class SalesforceProxy < Sinatra::Base
   proxy '/*' do
     #puts request.env.to_yaml
     body = request.body.read
+    path = request.env['PATH_INFO'].gsub '/proxy', ''
     query_string = request.query_string
     sf_endpoint = request.env['HTTP_X_SALESFORCEPROXY_ENDPOINT'] || 'http://login.salesforce.com/services/oauth2/token'
     auth_header = request.env['HTTP_AUTHORIZATION']
     content_type = (sf_endpoint.include?('oauth2') && 'application/x-www-form-urlencoded') || 'application/json'
     http_method = request.env['REQUEST_METHOD']
+    endpoint = "#{sf_endpoint}#{path}#{query_string}"
     result = Faraday.send http_method.downcase do |req|
-      req.url "#{sf_endpoint}?#{query_string}"
+      req.url endpoint
       req.headers["Authorization"] = auth_header if auth_header
       req.headers['Content-Type'] = content_type if content_type
       req.body = body if body
